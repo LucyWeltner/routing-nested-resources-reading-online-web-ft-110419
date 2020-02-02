@@ -1,7 +1,11 @@
 class PostsController < ApplicationController
 
   def index
-    @posts = Post.all
+    if params[:author_id]
+      @posts = Post.select{|post| post.author.id == params[:author_id].to_i}
+    else
+      @posts = Post.all
+    end
   end
 
   def show
